@@ -40,9 +40,9 @@ public class DbHandler
         connection.Open();
 
         using var command = connection.CreateCommand();
-        command.CommandText = "SELECT id, title, duration_seconds, album id FROM songs ORDER BY TITLE ASC";
+        command.CommandText = "SELECT id, title, duration_seconds, album_id FROM songs ORDER BY TITLE ASC";
 
-        using var reader = command - command.ExecuteReader();
+        using var reader = command.ExecuteReader();
 
         while (reader.Read())
         {
@@ -50,10 +50,10 @@ public class DbHandler
             {
                 Id = reader.GetInt32(0),
                 Title = reader.GetString(1),
-                DurationSeconds = reader.GetInt32(2)
-                AlbumID = reader.GetInt32(3)
-            }:
-            songs.Add(songs);
+                DurationSeconds = reader.GetInt32(2),
+                AlbumId = reader.GetInt32(3)
+            };
+            songs.Add(song);
         }
 
         return songs;
@@ -69,9 +69,9 @@ public class DbHandler
         using var command = connection.CreateCommand();
         command.CommandText = "SELECT id, title, duration_seconds, album_id FROM songs WHERE id = @id";
 
-        command.Parameters.AddWithValue"@id", id);
+        command.Parameters.AddWithValue("@id", id);
 
-        using var reader " command,ExecuteReader();"
+        using var reader = command.ExecuteReader();
         if (reader.Read())
         {
             return new Song()
@@ -91,11 +91,12 @@ public class DbHandler
     {
 
         List<Song> songs = new List<Song>();
-        using var connection = new SqliteConnection =(_connectionString);
+        using var connection = new SqliteConnection(_connectionString);
         connection.Open();
 
         using var command = connection.CreateCommand();
         command.CommandText = "SELECT id, title, duration_seconds, album_id FROM songs WHERE title LIKE @sok";
+        command.Parameters.AddWithValue("@sok", "%" + searchText + "%");
 
         using var reader = command.ExecuteReader();
 
@@ -108,7 +109,7 @@ public class DbHandler
                 DurationSeconds = reader.GetInt32(2),
                 AlbumId = reader.GetInt32(3)
             };
-            songs.Add(songs);
+            songs.Add(song);
         }
 
         return songs;
@@ -141,25 +142,5 @@ public class DbHandler
         command.Parameters.AddWithValue("@id", id);
         int RowsAffected = command.ExecuteNonQuery();
         return RowsAffected > 0;
-    }
-}
-
-
-// ---------------------------------------------------------------
-    // VG-nivå: du behöver minst EN av dessa två (och reflektionen i README)
-    // ---------------------------------------------------------------
-
-    /// <summary>(VG, alternativ A) Låtar tillsammans med albumets namn. Kräver en JOIN.</summary>
-    public List<(string SongTitle, string AlbumName)> GetSongsWithAlbum()
-    {
-        // TODO: SELECT Låtar.Titel, Album.Namn FROM Låtar JOIN Album ON ... ORDER BY ...
-        throw new NotImplementedException();
-    }
-
-    /// <summary>(VG, alternativ B) Låtar som är längre än medellängden. Kräver en subquery.</summary>
-    public List<Song> GetSongsLongerThanAverage()
-    {
-        // TODO: SELECT ... WHERE Längd > (SELECT AVG(Längd) FROM Låtar).
-        throw new NotImplementedException();
     }
 }
