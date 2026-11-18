@@ -25,6 +25,7 @@ public class DbHandler
     public DbHandler(string connectionString)
     {
         _connectionString = connectionString;
+        Seed();
     }
 
     // ---------------------------------------------------------------
@@ -143,4 +144,25 @@ public class DbHandler
         int RowsAffected = command.ExecuteNonQuery();
         return RowsAffected > 0;
     }
+
+    public void Seed()
+    {
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
+
+        using var check = connection.CreateCommand();
+        check.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='songs'";
+        if ((long)check.ExecuteScalar()! > 0) return;
+
+        var statements = File.ReadAllText("musik.sql")
+            .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        foreach (var statement in statements)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = statement;
+            command.ExecuteNonQuery();
+        }
+    }
+
 }
