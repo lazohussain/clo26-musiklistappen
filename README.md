@@ -5,8 +5,7 @@
 ---
 
 ## Vad appen gör
-
-[Skriv här: två till tre meningar om din app. Vilken artist handlar den om och vad kan man göra i menyn?]
+Min app handlar om artisten Michael Jackson och hans album och låtar. I menyn kan man visa alla låtar, hitta en låt via ID, söka efter låtar genom titel, lägga till nya låtar och ta bort låtar. Man kan även avsluta programmet via menyn.
 
 ## Så kör du den
 
@@ -16,12 +15,11 @@ cd [mappens namn]/MusikApp
 dotnet run
 ```
 
-[Skriv här om något behöver göras först, t.ex. att `musik.db` ska ligga i mappen `MusikApp/`.]
-
+Min app handlar om artisten Michael Jackson och hans album och låtar. I menyn kan man visa alla låtar, hitta en låt via ID, söka efter låtar genom titel, lägga till nya låtar och ta bort låtar. Man kan även avsluta programmet via menyn.
 ## Så ser huvudmenyn ut
 
 [Lägg in en screenshot här. Spara bilden i repot och länka den: `![Huvudmenyn](bild.png)`]
-
+se bifogad bild
 ---
 
 ## Mina designval (VG)
