@@ -21,5 +21,8 @@
   <ItemGroup>
     <!-- Lägg din databasfil som MusikApp/musik.db, så följer den med när du kör från Visual Studio också. -->
     <None Update="musik.sql" CopyToOutputDirectory="PreserveNewest" Condition="Exists('musik.db')" />
+    <None Update="musik.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
